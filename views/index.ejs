@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="moviebookerapp">
+  <head>
+    <title><%= title %></title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <div class="navbar navbar-dark bg-primary navbar-static-top">
+      <div class="container-fluid">
+        <a href="#/" class="navbar-brand">Movie Booker</a>
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/NewMovie">Add New Movie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <ng-view></ng-view>
+
+    <!-- Loading Javascripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.4.7/angular-resource.js"></script>
+    <script src="/javascripts/view.js"></script>
+
+    <script type="text/ng-template" id="/main.html">
+
+      <!-- Center Jumbotron Code -->
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Movie Booker</h1>
+          <p class="lead text-muted">Select from wide list of Movies and book the shows right away online</p>
+        </div>
+      </section>
+
+      <div class="album text-muted">
+        <div class="container">
+
+          <div class="row" ng-repeat="movie in movies">
+            <div class="card" style="min-height: 201px; max-height: 201px;">
+              <img style="float:left;width:150px;height:200px; margin-right:10px;" src="data:image/png;base64,{{movie.poster}}" alt="Poster">
+              <h1>{{movie.name}}</h1>
+              <p class="card-text">{{movie.description}}</p>
+              <p class="card-text">Rating: {{movie.rating}}/10</p>
+              <a href="#/book/{{movie._id}}" class="btn btn-primary ">Book Now</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="/book.html">
+       <div class="container" style="padding-top: 40px;">
+        <div class="booking-window">
+
+          <div class="row" ng-repeat="show in movie.booking">
+            <div class="card" style="min-height: 201px; ">
+              <img style="float:left;width:150px;height:200px; margin-right:10px;" src="data:image/png;base64,{{movie.poster}}" alt="Poster">
+              <h1>{{movie.name}}</h1>
+              <p class="card-text"><b>Time:</b> {{show.show_time}}</p>
+              <p class="card-text"><b>Price/Seat:</b> Rs.100.00</p>
+              <div ng-repeat="seat in show.show_seats track by $index" style="display: inline-block;" ng-click="SeatClicked(movie,show._id,$index,seat)" >
+                <div class="show-seat" id={{$index}} ng-class="{showseatAvailable: isAvailable(movie,show._id,$index), showseatNotAvailable: isNotAvailable(movie,show._id,$index), showseatBooked: isBooked(movie,show._id,$index)}">
+                  <span>S{{$index+1}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="confirmSeatsBtn">
+            <span><b>Rs. {{finalCost()}} </b></span><a href="#/" class="btn btn-info" ng-click="confirmBooking(movie)">Confirm Seats</a>
+          </div>
+
+        </div>
+       </div>
+    </script>
+
+    <script type="text/ng-template" id="/NewMovie.html">
+      <div class="container" style="padding-top: 40px;">
+        <form class="form-signin">
+         <h2 class="form-signin-heading">Add New Movie Details Here</h2>
+         <label for="inputName" class="sr-only">Movie Name</label>
+         <input type="text" id="inputName" class="form-control" ng-model="movie.name" value="{{movie.name}}" placeholder="Movie Name" required autofocus>
+
+         <label for="inputDescription" class="sr-only">Description</label>
+         <input type="text" id="inputDescription" class="form-control" ng-model="movie.description" value="{{movie.description}}" placeholder="Description" required>
+
+         <label for="inputRating" class="sr-only">Rating</label>
+         <select class="form-control" id="inputRating" ng-model="movie.rating" value="{{movie.rating}}">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+         </select>
+
+         <label for="inputPoster" class="sr-only">Poster</label>
+         <input type="file" id="inputPoster" class="form-control" placeholder="Poster" fileread={{poster}} accept=".png">
+
+         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="saveMovie()">Add</button>
+       </form>
+     </div>
+    </script>
+  </body>
+</html>
