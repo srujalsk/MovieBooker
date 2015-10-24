@@ -39,13 +39,6 @@
   vertical-align: middle;
 }
 
-/*.show-seat:hover,
-.show-seat:focus{
-  background-color: #025aa5;
-  cursor:pointer;
-  #025aa5;
-}*/
-
 .confirmSeatsBtn {
   display: inline;
   float: right;

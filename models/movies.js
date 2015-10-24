@@ -33,33 +33,3 @@ var MovieSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Movies', MovieSchema);
-
-function GetOffTheaterDate()
-{
-  var currentDate = Date.now;
-  var d = new Date();
-  d.setDate(currentDate + 7);
-  return d;
-}
-
-//Sub Schema Test
-/*var ShowSchema = new mongoose.Schema({
-  show_time: {type: Date, default: Date.now},
-  show_seats: {type: Array, default: [
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available,
-  common_types.SeatStatus.Available]
-  },
-});*/

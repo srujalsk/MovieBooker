@@ -3,7 +3,7 @@
   <head>
     <title><%= title %></title>
 
-    <!-- Required meta tags -->
+    <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -24,9 +24,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#/NewMovie">Add New Movie</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -41,6 +38,7 @@
     <script src="https://code.angularjs.org/1.4.7/angular-resource.js"></script>
     <script src="/javascripts/view.js"></script>
 
+    <!-- Main view -->
     <script type="text/ng-template" id="/main.html">
 
       <!-- Center Jumbotron Code -->
@@ -68,6 +66,7 @@
       </div>
     </script>
 
+    <!-- Booking View -->
     <script type="text/ng-template" id="/book.html">
        <div class="container" style="padding-top: 40px;">
         <div class="booking-window">
@@ -94,6 +93,7 @@
        </div>
     </script>
 
+    <!-- New Movie View -->
     <script type="text/ng-template" id="/NewMovie.html">
       <div class="container" style="padding-top: 40px;">
         <form class="form-signin">
@@ -121,7 +121,7 @@
          <label for="inputPoster" class="sr-only">Poster</label>
          <input type="file" id="inputPoster" class="form-control" placeholder="Poster" fileread={{poster}} accept=".png">
 
-         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="saveMovie()">Add</button>
+         <a class="btn btn-lg btn-primary btn-block" ng-click="saveMovie()">Add</a>
        </form>
      </div>
     </script>
